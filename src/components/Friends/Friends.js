@@ -24,7 +24,7 @@ export default class Friends extends Component {
 
   componentDidMount() {
     // this.checkAsyncStorage();
-    axios.get(`http://10.16.1.218:3000/friends`, { params: { user: this.state.userId }})
+    axios.get(`http://10.16.1.233:3000/friends`, { params: { user: this.state.userId }})
     .then(friends => {
       this.setState({ friends: friends.data })
     })
@@ -39,7 +39,7 @@ export default class Friends extends Component {
       negImages: [],
       normalImages: []
     })
-    axios.get(`http://10.16.1.218:3000/mapMarkers`, { params: { userID: friend.Friend}})
+    axios.get(`http://10.16.1.233:3000/mapMarkers`, { params: { userID: friend.Friend}})
     .then(res => {
       this.setState({selectedLocations: res.data || []})
     })

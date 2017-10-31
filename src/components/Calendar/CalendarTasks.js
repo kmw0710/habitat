@@ -154,9 +154,7 @@ export default class CalendarTasks extends Component {
   }
 
   notImport(index) {
-    console.log(this.state.tasksFromGoogle, 'BEFORE SPLICE')
     this.state.tasksFromGoogle.splice(index, 1);
-    console.log(this.state.tasksFromGoogle, 'AFTER SPLICE');
     this.setState({
       tasksFromGoogle: this.state.tasksFromGoogle
     })

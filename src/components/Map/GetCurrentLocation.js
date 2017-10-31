@@ -14,7 +14,7 @@ export default GetCurrentLocation = async (userID) => {
 
   let location = await Location.getCurrentPositionAsync({});
 
-  axios.put(`http://10.16.1.218:3000/updateLocation`, { userID: userID, location: location})
+  axios.put(`http://10.16.1.233:3000/updateLocation`, { userID: userID, location: location})
   .then(res => console.log('update success'))
   return location;
 }

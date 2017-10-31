@@ -30,7 +30,7 @@ class TaskItem extends Component {
   }
 
   deleteTask() {
-    axios.delete('http://10.16.1.218:3000/deleteTask', {params: {userID: this.props.userID, taskTitle: this.state.task.Task_Title}})
+    axios.delete('http://10.16.1.233:3000/deleteTask', {params: {userID: this.props.userID, taskTitle: this.state.task.Task_Title}})
     .then(() => this.setState({task: null}))
     .catch(err => console.error(err))
   }
