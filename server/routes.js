@@ -27,6 +27,7 @@ const putNegTimerPoints = require('./controllers/timerNegPointsHandler');
 const calendarHandler = require('./controllers/calendarHandler');
 const handleGetUserInfo = require('./controllers/getUserInfo');
 const handleGoogle = require('./controllers/checkGoogle');
+const friendLocations = require('./controllers/friendLocations');
 
 routes.post('/signup', handleSignup);
 routes.get('/login', handleLogin);
@@ -59,5 +60,6 @@ routes.put('/negtimer', putNegTimerPoints);
 routes.post('/calendar', calendarHandler);
 routes.get('/getUserInfo', handleGetUserInfo);
 routes.get('/checkGoogle', handleGoogle);
+routes.get('/friendLocations', friendLocations);
 
 module.exports = routes;

@@ -31,13 +31,19 @@ export default class MapScreen extends Component {
       iconLoaded: false,
       modalVisible: false,
       currentPress: [],
-      specifiedLocation: undefined
+      specifiedLocation: undefined,
+      friends: [],
+      fakeWalk: false,
+      walkTo: null,
+      count: 0
     };
     this.editTask = this.editTask.bind(this);
+    this.onRegionChange = this.onRegionChange.bind(this);
+    this.startWalking = this.startWalking.bind(this)
   }
 
   getMarkers() {
-    axios.get('http://10.16.1.218:3000/mapMarkers', {params: {userID: this.state.userID}})
+    axios.get('http://10.16.1.233:3000/mapMarkers', {params: {userID: this.state.userID}})
      .then(markers => {
        this.setState({markers: markers.data})
      })
@@ -50,8 +56,17 @@ export default class MapScreen extends Component {
      })
      .then(res => this.updateCurrentLocation())
      .then(res => setTimeout(this.startRender, 350))
+     .then(res => this.getFriends())
      .then(res => setTimeout(() => {this.animateMap()}, 1550))
      .catch(err => console.error('error getting markers',err))
+  }
+
+  getFriends() {
+    axios.get(`http://10.16.1.233:3000/friendLocations`, { params: { user: this.state.userID }})
+    .then(friends => {
+      this.setState({ friends: friends.data || [] })
+    })
+    .catch(err => console.error(error))
   }
 
   componentDidMount() {
@@ -167,6 +182,48 @@ export default class MapScreen extends Component {
     })
   }
 
+  fakeWalk(region) {
+    if (!region) {
+      console.log('show icon')
+      this.setState({fakeWalk: !this.state.fakeWalk})
+    } else {
+      console.log('is walking?')
+      this.setState({ walkTo: region}, () => setTimeout(this.startWalking, 300))
+    }
+  }
+
+  startWalking() {
+    // console.log(this.state.currentLocation.coordinate, this.state.walkTo)
+    let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
+    let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
+
+    let dx = x/20;
+    let dy = y/20;
+
+    let convolutedMagic = () => {
+      let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
+      let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
+      console.log(x, y)
+      if (Math.abs(x) < 0.0001 || Math.abs(y) < 0.0001) return;
+      this.setState({
+        currentLocation: {
+          coordinate: {
+            latitude: this.state.currentLocation.coordinate.latitude + dx,
+            longitude: this.state.currentLocation.coordinate.longitude + dy,
+          },
+          title: "Current Location",
+          description: "Me"
+        }
+      }, () => setTimeout(convolutedMagic, 300))
+    }
+
+    convolutedMagic()
+  }
+
+  onRegionChange(region) {
+    this.setState({region})
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
@@ -182,6 +239,7 @@ export default class MapScreen extends Component {
           ref={map => this.map = map}
           initialRegion={this.state.region}
           style={styles.container}
+          onRegionChange={this.onRegionChange}
         >
           <MapView.Marker
             key={this.state.iconLoaded ? 'markerLoaded' : 'marker'}
@@ -207,11 +265,27 @@ export default class MapScreen extends Component {
               );
             })
           ) : null}
+          {this.state.friends.map((friend, index) => {
+            return (
+              <MapView.Marker
+                key={index}
+                coordinate={{latitude: friend.Latitude, longitude: friend.Longitude}}
+                title={friend.Friend_Name}
+                >
+                <Image source={{uri: friend.Pic}} style={styles.friends}/>
+              </MapView.Marker>
+            );
+          })}
           {this.state.specifiedLocation ? (
             <MapView.Circle
               radius={25}
               center={{latitude: this.state.specifiedLocation.Latitude, longitude: this.state.specifiedLocation.Longitude}}
             />
+          ) : null}
+          {this.state.fakeWalk ? (
+            <MapView.Marker coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}} title="walk here" onPress={() => this.fakeWalk(this.state.region)}>
+              <Image source={require("../assets/pin.png")} style={{width: 50, height: 50}} />
+            </MapView.Marker>
           ) : null}
         </MapView>
         <Animated.ScrollView
@@ -236,6 +310,9 @@ export default class MapScreen extends Component {
         </Animated.ScrollView>
         <TouchableOpacity style={styles.recenter} onPress={() => this.updateCurrentLocation()}>
           <Image source={require("../assets/Ecosystem/currentlocation.png")} style={{width: 50, height: 50}} />
+        </TouchableOpacity>
+        <TouchableOpacity style={{position: "absolute", bottom: 60, left: 30}} onPress={() => this.fakeWalk()}>
+          <Image source={require("../assets/walking.png")} style={{width: 50, height: 50}}/>
         </TouchableOpacity>
         {this.state.modalVisible ? (
           <TaskModal userID={this.state.userID} editTask={this.editTask} tasks={this.state.currentPress} modalVisible={this.state.modalVisible} toggleHide={this.toggleHide.bind(this)}/>
@@ -307,5 +384,12 @@ const styles = StyleSheet.create({
   ecoBuds: {
     width: 100,
     height: 100
+  },
+  friends: {
+    borderRadius: 30,
+    borderBottomLeftRadius: 30,
+    zIndex: 3,
+    width: 30,
+    height: 30
   }
 });

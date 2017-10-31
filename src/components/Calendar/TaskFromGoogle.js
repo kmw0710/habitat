@@ -54,8 +54,9 @@ export default class TaskFromGoogle extends Component {
     return (
       <View style={{ justifyContent: 'center', marginTop: 30, display: 'flex' }}>
         <Text style={styles.title}>{this.props.task.title}</Text>
-          {this.state.imported ? (<Text>Already Imported!</Text>) : (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+          {this.state.imported ? (<Text style={styles.imported}>Already Imported!</Text>) : (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
             <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>    
               <Picker onValueChange={(marker) => this.pickLocation(marker)} selectedValue={this.state.selectedMarker}
                 style={{ width: 100, height: 50 }} itemStyle={{ height: 50 }}>
@@ -74,13 +75,14 @@ export default class TaskFromGoogle extends Component {
                 <View style={{ backgroundColor: this.props.categories[this.state.selectedCategory].Color, margin: 10, width: 25, height: 25, borderRadius: 25}} >
                 </View>
             </View>
-            <View style={{ marginRight: 30}}>
+            </View>
+          )}
+            <View style={{ alignSelf: 'flex-end'}}>
               <TouchableOpacity onPress={() => this.notImport(this.props.eachIndex)}>
                 <Image source={require('../assets/cross-out.png')} style={{ height: 30, width: 30 }}/>
               </TouchableOpacity>
             </View>
           </View>
-          )}
       </View>
     )
   }
@@ -103,5 +105,9 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: "bold",
     alignSelf: 'center'
+  },
+  imported: {
+    fontSize: 11,
+    alignSelf: 'center',
   }
 })

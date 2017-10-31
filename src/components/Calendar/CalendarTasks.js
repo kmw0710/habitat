@@ -170,7 +170,7 @@ export default class CalendarTasks extends Component {
 					return <TaskFromGoogle notImport={this.notImport} userID={this.state.userID} eachIndex={i} key={i} task={task} markers={this.state.markers} categories={this.state.categories} />
 				}) : null}
 				</View>
-				<View style={{ flex: 1, justifyContent: 'flex-end', marginBottom: 30 }}>
+				<View>
 					<Button onPress={() => this.saveAllTasks()} title="Save" /> 
 				</View>
 			</View>
@@ -184,4 +184,3 @@ const images = [
 	[2, require("../assets/Ecosystem/gym.png")],
 	[3, require("../assets/Ecosystem/currentlocation.png")]
 ]
-
