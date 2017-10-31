@@ -17,7 +17,6 @@ const convertDate = (string) => {
 
   let convert = month + day + year + ' ' + hour + minute;
   let dateValue = new Date(convert);
-  // October 19th 2017
   return dateValue
 }
 

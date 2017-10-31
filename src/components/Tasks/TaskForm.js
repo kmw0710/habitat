@@ -65,7 +65,7 @@ class TaskForm extends Component {
         >
           <Picker.Item label="Does not repeat" value="no-repeat" />
           <Picker.Item label="Daily" value="daily" />
-          <Picker.Item label="Weekly" value="weekly" />
+          <Picker.Item label="Weekly" value="weekly" /> 
           <Picker.Item label="Monthly" value="monthly" />
         </Picker>
         <TextInput 
