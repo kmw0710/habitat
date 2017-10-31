@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Linking } from 'react-native';
+import { AuthSession } from 'expo';
 import axios from 'axios';
 import Ecosystem from '../Frontend/EcoSystem';
 import CalendarTasks from './CalendarTasks';
+// import config from './config';
 
 
 export default class CalendarSetup extends Component {
@@ -38,7 +40,12 @@ export default class CalendarSetup extends Component {
     });
   }
 
-  goBack() {
+  goBack = async () => {
+    // await AuthSession.startAsync({
+    //   authUrl:
+    //   `https://mail.google.com/mail/logout?hl=en` +
+    //   `&redirect_uri=${config.redirect_url}` 
+    // })
     this.props.navigation.navigate('Home');
   }
 
