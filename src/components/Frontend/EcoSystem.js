@@ -122,7 +122,7 @@ export default class EcoSystem extends Component {
     }
 
     let positivePoints = this.state.locations[this.state.index].PositivePoints + 1;
-    axios.put('http://10.16.1.218:3000/yayTask', {
+    axios.put('http://10.16.1.233:3000/yayTask', {
       taskId: this.state.currentTaskId,
       markerId: this.state.locations[this.state.index].Marker_ID,
       positivePoints: positivePoints
@@ -147,7 +147,7 @@ export default class EcoSystem extends Component {
     }
 
     let negativePoints = this.state.locations[this.state.index].NegativePoints + 1;
-    axios.put('http://10.16.1.218:3000/nayTask', {
+    axios.put('http://10.16.1.233:3000/nayTask', {
       taskId: this.state.currentTaskId,
       markerId: this.state.locations[this.state.index].Marker_ID,
       negativePoints: negativePoints

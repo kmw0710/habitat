@@ -19,7 +19,7 @@ export default class Signup extends Component {
   }
 
   handleSignup() {
-    axios.post(`http://10.16.1.218:3000/signup`, {
+    axios.post(`http://10.16.1.233:3000/signup`, {
       username: this.state.username,
       password: this.state.password,
       email: this.state.email

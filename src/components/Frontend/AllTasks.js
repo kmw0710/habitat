@@ -50,7 +50,7 @@ export default class AllTasks extends Component {
     }
 
     let positivePoints = task.PositivePoints + 1;
-    axios.put('http://10.16.1.218:3000/yayTask', {
+    axios.put('http://10.16.1.233:3000/yayTask', {
       taskId: task.Task_ID,
       markerId: task.Marker_ID,
       positivePoints: positivePoints
@@ -75,7 +75,7 @@ export default class AllTasks extends Component {
     }
 
     let negativePoints = task.NegativePoints + 1;
-    axios.put('http://10.16.1.218:3000/nayTask', {
+    axios.put('http://10.16.1.233:3000/nayTask', {
       taskId: task.Task_ID,
       markerId: task.Marker_ID,
       negativePoints: negativePoints
