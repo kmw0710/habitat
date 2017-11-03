@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
   },
   onePicker: {
     width: 200,
-    height: 88
+    height: 60,
+    margin: 0
   },
   onePickerItem: {
     height: 88,

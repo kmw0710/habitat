@@ -172,7 +172,7 @@ class TaskBuilder extends Component {
     return this.state.userID ? (
       <View>
         <Image source={require(`../assets/habit@/water-bg.png`)} style={{opacity: 0.8}}>
-        <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
+        <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start', marginBottom: -50}}>
           <Button
             onPress={() => this.jankyNav()}
             title="&#9776;"
@@ -218,8 +218,15 @@ const styles = StyleSheet.create({
     bottom: 50,
 
   },
+  scrollViewStyle: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingTop: 60
+  },
   formContainer: {
-    flex: 1,
     backgroundColor: 'white',
     flexDirection: 'column',
     justifyContent: 'center',

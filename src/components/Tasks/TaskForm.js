@@ -88,6 +88,7 @@ class TaskForm extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 0
   },
   input: {
     height: 30,
@@ -97,10 +98,13 @@ const styles = StyleSheet.create({
     color: '#8A7D80',
     borderColor: '#8A7D80',
     borderBottomWidth: 1,
-    color: 'white'
+    color: 'white',
+    textAlign: 'center'
   },
   picker: {
     width: 200,
+    marginTop: -20,
+    marginBottom: 0
   },
   pickerItem: {
     color: 'white'
