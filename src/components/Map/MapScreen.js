@@ -40,6 +40,7 @@ export default class MapScreen extends Component {
   getMarkers() {
     axios.get('https://naturalhabitat.herokuapp.com/mapMarkers', {params: {userID: this.state.userID}})
      .then(markers => {
+       console.log(markers.data, 'after getting markers')
        this.setState({markers: markers.data})
      })
      .then(res => {
@@ -246,6 +247,7 @@ export default class MapScreen extends Component {
           ) : null}
           <TouchableOpacity onPress={() => navigate('Avatar')} style={styles.cardContainer}>
             <Image source={require("../assets/plus.png")} style={styles.cardImage}/>
+            <Text>Hello</Text>
           </TouchableOpacity>
         </Animated.ScrollView>
         <TouchableOpacity style={styles.recenter} onPress={() => this.updateCurrentLocation()}>
