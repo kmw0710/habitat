@@ -56,36 +56,36 @@ export default class TaskFromGoogle extends Component {
   render() {
     // console.log(this.state.selectedMarker, 'MARKER ID')
     // console.log(this.props.markers)
-    this.props.task
+
     return (
-      <View style={{ backgroundColor: 'green', justifyContent: 'center', marginTop: 15, display: 'flex', alignItems: 'center' }}>
+      <View style={{ justifyContent: 'center', marginTop: 25, display: 'flex', alignItems: 'center' }}>
         <Text style={styles.title}>{this.props.task.title}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           {this.state.imported ? (<View style={{ flex: 9, marginLeft: 10 }}><Text style={styles.imported}>Already Imported!</Text></View>) : (
-            <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginLeft: 20 }}>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>    
                 <Picker onValueChange={(marker) => this.pickLocation(marker)} selectedValue={this.state.selectedValue}
-                  style={{ width: 100, height: 50 }} itemStyle={{ height: 50 }}>
+                  style={{ width: 110, height: 50 }} itemStyle={{ height: 77, color: '#fff' }}>
                 {this.props.markers ? this.props.markers.map((marker, i) => {
                   return <Picker.Item label={marker.Marker_Title} value={i} key={i} />
                 }) : null}
                 </Picker>
-                <Image source={images[this.state.selectedMarker][1]} style={{ height: 35, width: 35, resizeMode: 'contain'}} />  
+                <Image source={images[this.state.selectedMarker][1]} style={{ height: 40, width: 40, marginTop: 15, resizeMode: 'contain'}} />  
 
                 <Picker onValueChange={(category) => this.pickCategory(category)} selectedValue={this.state.selectedCategory}
-                  style={{ width: 100, height: 50 }} itemStyle={{ height: 50 }}>
+                  style={{ width: 110, height: 50 }} itemStyle={{ height: 77, color: '#fff' }}>
                   {this.props.categories ? this.props.categories.map((category, i) => {
                     return <Picker.Item label={category.Category} value={i} key={i} />
                   }) : null}
                 </Picker>
-                  <View style={{ backgroundColor: this.props.categories[this.state.selectedCategory].Color, margin: 10, width: 25, height: 25, borderRadius: 25}} >
+                  <View style={{ backgroundColor: this.props.categories[this.state.selectedCategory].Color, marginLeft: 10, marginTop: 25, width: 25, height: 25, borderRadius: 25}} >
                   </View>
               </View>
             </View>
           )}
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginRight: 15 }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginRight: 15, marginTop: 22 }}>
               <TouchableOpacity onPress={() => this.notImport(this.props.eachIndex)}>
-                <Image source={require('../assets/cross-out.png')} style={{ height: 30, width: 30 }}/>
+                <Image source={require('../assets/cross-out.png')} style={{ height: 30, width: 30, marginBottom: 3 }}/>
               </TouchableOpacity>
             </View>
           </View>

@@ -35,7 +35,10 @@ export default class EcoSystem extends Component {
       toggleShow: false,
       positivePoints: 0,
       negativePoints: 0,
-      nullPoints: 0
+      nullPoints: 0,
+      giftPoints: 0,
+      hatchedGiftPoints: 0,
+      completedSun: false
     }
     this.showTask = this.showTask.bind(this);
   }
@@ -55,6 +58,7 @@ export default class EcoSystem extends Component {
       userID: this.props.screenProps.userID,
     }, () => this.getMarkers())
   }
+
 
 
   getMarkers() {
@@ -101,6 +105,7 @@ export default class EcoSystem extends Component {
     })
   }
 
+
   editTask(task) {
     this.props.navigation.navigate('TaskBuilder', { specificTask: this.state.editSpecificTask, editing: true })
   }
@@ -122,7 +127,6 @@ export default class EcoSystem extends Component {
       Alert.alert('the task deadline has not ended yet. Wait!')
       return;
     }
-    let positivePoints = this.state.locations[this.state.index].PositivePoints + 1;
 
     axios.put('https://naturalhabitat.herokuapp.com/yayTask', {
       taskId: this.state.currentTaskId,
@@ -217,6 +221,7 @@ export default class EcoSystem extends Component {
               var positiveImageNumber = location.PositivePoints%10;
               var downgradeImageNumber = Math.floor(location.NegativePoints/4);
               var negativeImageNumber = location.NegativePoints%4;
+              var giftPointNumber = location.GiftPoints;
               upgradeImages = new Array(upgradeImageNumber);
               upgradeImages.fill(location.Ecosystem);
               posImages = new Array(positiveImageNumber);
@@ -225,6 +230,8 @@ export default class EcoSystem extends Component {
               downgradeImages.fill(location.Ecosystem);
               negImages = new Array(negativeImageNumber);
               negImages.fill(location.Ecosystem);
+              giftImages = new Array(giftPointNumber);
+              giftImages.fill(location.Ecosystem);
 
               return (
               // put backgroundImage in the style
@@ -238,22 +245,20 @@ export default class EcoSystem extends Component {
                     source={require('../assets/habit@/logo.png')}
                     style={{height: 50, width: 100, resizeMode: 'contain'}}
                   />
-                  <View style={{alignItems: 'center', marginBottom: 5}}>
-                    <Text style={styles.cardtitle}>
-                      {location.Marker_Title}
-                    </Text>
-                    <Text style={styles.cardDescription}>
-                      {location.Marker_Description}
-                    </Text>
-                  </View>
                 </View>
+                  <Text style={styles.cardtitle}>
+                    {location.Marker_Title}
+                  </Text>
+                <Text style={styles.cardDescription}>
+                  {location.Marker_Description}
+                </Text>
                 <Image style={{height: '100%', width: '100%'}} source={backgrounds[location.Ecosystem][1]}>
                 <View style={{flex: 1, flexDirection:'row', flexWrap: 'wrap'}} >
                   {location.tasks ? (
                     location.tasks.map((task, i) => {
                       if (task.Completion === null) {
                         return (
-                          <EcosystemViewPractice img={task.Ecosystem} key={i} version={3}/>
+                          <EcosystemViewPractice img={task.Ecosystem} key={i} version={1}/>
                         )
                       } else {
                         return null
@@ -264,20 +269,29 @@ export default class EcoSystem extends Component {
                       <EcosystemViewPractice img={img} key={i} version={2}/>
                     ))
                    : null}
-                   {downgradeImageNumber > 0 ?
+                   {downgradeImageNumber > 0 ? (
                     downgradeImages.map((img, i) => {
                       return (
                         <EcosystemViewPractice img={img} key={i} version={4}/>
                       )
                     })
-                   : null}
-                   {location.NegativePoints ?
-                    negImages.map((img, i) => {
+                  ) : null}
+                  {upgradeImageNumber > 0 ?
+                    upgradeImages.map((img, i) => {
                       return (
                         <EcosystemViewPractice img={img} key={i} version={0}/>
                       )
                     })
                   : null}
+                  {location.GiftPoints ?
+                    giftImages.map((img, i) => {
+                      console.log(location.GiftPoints, 'LOCATION GIFT POINTS')
+                      return (
+                        <EcosystemViewPractice img={img} key={i} version={5}/>
+                      )
+                    })
+                  : null}
+
                   </View>
                   </Image>
               </View>
@@ -327,8 +341,8 @@ export default class EcoSystem extends Component {
       />
     </View>
   ) :
-  <View style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
-    <Image source={require('../assets/loading.gif')} style={{width: 400, height: 400}}/>
+  <View style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
+    <Image source={require('../assets/loading2.gif')} style={{width: 400, height: 400}}/>
   </View>
   }
 }
@@ -385,7 +399,7 @@ const styles = StyleSheet.create({
   },
   cardDescription: {
     fontSize: 25,
-    color: "#FF6600"
+    color: "#FF6600",
   },
   circle: {
    width: 120,

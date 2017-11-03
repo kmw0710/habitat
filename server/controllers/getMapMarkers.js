@@ -11,8 +11,6 @@ const getMapMarkers = (req, res) => {
   let currentDay = req.query.currentDay;
   let today = new Date();
   // today = moment(today);
-  console.log(today, 'todays daaaate')
-
   let query = `SELECT * FROM Marker WHERE User_ID = ${userID}`;
   let innerQuery = `SELECT * FROM Tasks WHERE User_ID = ${userID} AND LEFT(Start, LOCATE(',', START) -1)='${today}'`;
   let categoryQuery = `SELECT * FROM CategoryDeets WHERE User_ID = ${userID}`;
