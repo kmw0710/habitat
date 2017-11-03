@@ -39,6 +39,7 @@ export default class Friends extends Component {
   }
 
   selectFriend(friend, key) {
+    console.log(friend, 'friend')
     this.setState({
       selectedLocations: [],
       upgradeImages: [],
@@ -51,6 +52,7 @@ export default class Friends extends Component {
 
     axios.get(`https://naturalhabitat.herokuapp.com/mapMarkers`, { params: { userID: friend.Friend}})
     .then(res => {
+      console.log(res.data, 'after call')
       this.setState({
         selectedLocations: res.data || [],
       })
@@ -59,9 +61,10 @@ export default class Friends extends Component {
   }
 
   showEcosystem(location) {
+    // console.log(location)
     this.setState({
       selectedEco: location.Ecosystem,
-      selectedLocation: location.Marker_ID,
+      selectedLocation: [],
       locationIsClicked: true,
       upgradeImages: [],
       posImages: [],
@@ -139,14 +142,15 @@ export default class Friends extends Component {
         </View>
         <View style={{flex: 4}}>
             {this.state.loadingEcosystem ? (
-              <View>
-                <Image source={require('../assets/loading.gif')} style={{width: 200, height: 200}}/>
+              <View >
+                <Image source={require('../assets/loading2.gif')} style={{width: 200, height: 200}}/>
               </View>
             ) : (
               <View style={{flex: 1}}>
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                   <ScrollView horizontal={true}>
                     {this.state.selectedLocations.map((location, i) => {
+                      console.log(location, 'click me')
                       return (
                         <TouchableOpacity onPress={() => this.showEcosystem(location)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                           <Image source={images[location.Avatar][1]} style={{width: 25, height: 25}}/>
@@ -230,7 +234,8 @@ const backgrounds = [
 const images = [
   [0, require("../assets/Ecosystem/home.png")],
   [1, require("../assets/Ecosystem/work.png")],
-  [2, require("../assets/Ecosystem/gym.png")]
+  [2, require("../assets/Ecosystem/gym.png")],
+  [3, require("../assets/Ecosystem/work.png")],
 ]
 
 const styles = StyleSheet.create({

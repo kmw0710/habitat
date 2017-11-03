@@ -15,7 +15,7 @@ export default class EcosystemViewPractice extends Component {
       deadPosition: new Animated.ValueXY({x: Math.random() * 100, y: 150}),
       position: new Animated.ValueXY({x: Math.random() * 100, y: Math.random() * 100}),
       inProgress: new Animated.ValueXY({x: Math.random() * 100, y: Math.random() * 100}),
-      giftPosition: new Animated.ValueXY({x: Math.random() * 100, y: 300}),
+      giftPosition: new Animated.ValueXY({x: 220, y: 300}),
       hatchedPosition: new Animated.ValueXY({x: Math.random() * 100, y: 200}),
       version: props.version
     }
@@ -64,7 +64,7 @@ export default class EcosystemViewPractice extends Component {
       duration: 2000
     }).start(() => this.animate3());
   }
-  
+
   animateGift() {
     Animated.timing(this.state.hatchedPosition, {
       toValue: ({x: 100 + Math.random() * 100, y: 100 + Math.random() * 30}),
@@ -73,21 +73,18 @@ export default class EcosystemViewPractice extends Component {
   }
 
   hatchGift() {
+    console.log('invoked')
     this.setState({
       version: 6,
       hatchedPosition: this.state.giftPosition
     }, () => {
-      this.shouldComponentUpdate(true)
+      this.shouldComponentUpdate()
       this.animateGift()
     })
   }
 
-  shouldComponentUpdate(x) {
-    if (x) {
-      return true;
-    } else {
-      return false; 
-    }
+  shouldComponentUpdate() {
+    return true
   }
 
   render() {
@@ -112,6 +109,7 @@ export default class EcosystemViewPractice extends Component {
         </View>
       )
     } else if (this.state.version === 5) { //gift
+      console.log('is true', this.props.img, this.state.version)
       return (
         <View>
           <TouchableOpacity onPress={ this.hatchGift }>
@@ -133,9 +131,9 @@ export default class EcosystemViewPractice extends Component {
             </View>
           </Animated.View>
         </View>
-      )  
+      )
     } else { //dead
-      return ( 
+      return (
         <View>
         <Animated.View style={this.state.deadPosition.getLayout()}>
           <View style={{width: sizeKey[this.state.version], height: sizeKey[this.state.version]}}>

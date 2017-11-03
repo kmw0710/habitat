@@ -33,7 +33,6 @@ export default class MapScreen extends Component {
       walkTo: null,
       count: 0,
       currentMarker: null
-      // fakeWalk: false,
     };
     this.goToEditTask = this.goToEditTask.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -168,15 +167,6 @@ export default class MapScreen extends Component {
       }
     })
   }
-  // fakeWalk(region) {
-  //   if (!region) {
-  //     console.log('show icon')
-  //     this.setState({fakeWalk: !this.state.fakeWalk})
-  //   } else {
-  //     console.log('is walking?')
-  //     this.setState({ walkTo: region}, () => setTimeout(this.startWalking, 300))
-  //   }
-  // }
   startWalking() {
     let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
     let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
@@ -261,11 +251,6 @@ export default class MapScreen extends Component {
               center={{latitude: this.state.specifiedLocation.Latitude, longitude: this.state.specifiedLocation.Longitude}}
             />
           ) : null}
-          {/* {this.state.fakeWalk ? (
-            <MapView.Marker coordinate={{latitude: this.state.region.latitude, longitude: this.state.region.longitude}} title="walk here" onPress={() => this.fakeWalk(this.state.region)}>
-              <Image source={require("../assets/pin.png")} style={{width: 50, height: 50}} />
-            </MapView.Marker>
-          ) : null} */}
         </MapView>
         <Animated.ScrollView
           vertical
@@ -290,9 +275,6 @@ export default class MapScreen extends Component {
         <TouchableOpacity style={styles.recenter} onPress={() => this.updateCurrentLocation()}>
           <Image source={require("../assets/habit@/location.png")} style={{width: 50, height: 50, resizeMode: 'contain'}} />
         </TouchableOpacity>
-        {/* <TouchableOpacity style={{position: "absolute", bottom: 60, left: 30}} onPress={() => this.fakeWalk()}>
-          <Image source={require("../assets/walking.png")} style={{width: 50, height: 50, resizeMode: 'contain'}}/>
-        </TouchableOpacity> */}
         {this.state.modalVisible ? (
           <TaskModal
             style={{flex: 2}}
@@ -305,8 +287,8 @@ export default class MapScreen extends Component {
           />) : null }
       </View>
     ) :  (
-        <View style={{display:'flex', alignItems: 'center', justifyContent: 'center'}}>
-          <Image source={require("../assets/loading.gif")} style={{width: 200, height: 200, resizeMode: 'contain'}}/>
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "#dee1e2"}}>
+          <Image source={require("../assets/loading2.gif")} style={{width: 200, height: 200, resizeMode: 'contain'}}/>
         </View>
     )
   }
@@ -335,6 +317,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     height: 60,
     width: 90,
+    backgroundColor: 'transparent'
   },
   cardImage: {
     width: 30,

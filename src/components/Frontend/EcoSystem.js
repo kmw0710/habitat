@@ -252,7 +252,7 @@ export default class EcoSystem extends Component {
                 <Text style={styles.cardDescription}>
                   {location.Marker_Description}
                 </Text>
-                <Image style={{height: '70%', width: '100%'}} source={backgrounds[location.Ecosystem][1]}>
+                <Image style={{height: '100%', width: '100%'}} source={backgrounds[location.Ecosystem][1]}>
                 <View style={{flex: 1, flexDirection:'row', flexWrap: 'wrap'}} >
                   {location.tasks ? (
                     location.tasks.map((task, i) => {
@@ -285,12 +285,13 @@ export default class EcoSystem extends Component {
                   : null}
                   {location.GiftPoints ?
                     giftImages.map((img, i) => {
+                      console.log(location.GiftPoints, 'LOCATION GIFT POINTS')
                       return (
                         <EcosystemViewPractice img={img} key={i} version={5}/>
                       )
                     })
                   : null}
-                  
+
                   </View>
                   </Image>
               </View>
@@ -340,8 +341,8 @@ export default class EcoSystem extends Component {
       />
     </View>
   ) :
-  <View style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
-    <Image source={require('../assets/loading.gif')} style={{width: 400, height: 400}}/>
+  <View style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
+    <Image source={require('../assets/loading2.gif')} style={{width: 400, height: 400}}/>
   </View>
   }
 }
