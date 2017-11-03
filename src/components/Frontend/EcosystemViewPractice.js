@@ -15,7 +15,7 @@ export default class EcosystemViewPractice extends Component {
       deadPosition: new Animated.ValueXY({x: Math.random() * 100, y: 150}),
       position: new Animated.ValueXY({x: Math.random() * 100, y: Math.random() * 100}),
       inProgress: new Animated.ValueXY({x: Math.random() * 100, y: Math.random() * 100}),
-      giftPosition: new Animated.ValueXY({x: Math.random() * 100, y: 300}),
+      giftPosition: new Animated.ValueXY({x: 220, y: 300}),
       hatchedPosition: new Animated.ValueXY({x: Math.random() * 100, y: 200}),
       version: props.version
     }
@@ -90,6 +90,28 @@ export default class EcosystemViewPractice extends Component {
     }
   }
 
+  animateGift() {
+    Animated.timing(this.state.hatchedPosition, {
+      toValue: ({x: 100 + Math.random() * 100, y: 100 + Math.random() * 30}),
+      duration: 2000
+    }).start(() => this.animateGift());
+  }
+
+  hatchGift() {
+    console.log('invoked')
+    this.setState({
+      version: 6,
+      hatchedPosition: this.state.giftPosition
+    }, () => {
+      this.shouldComponentUpdate()
+      this.animateGift()
+    })
+  }
+
+  shouldComponentUpdate() {
+    return true
+  }
+
   render() {
     if (this.state.version === 2 || this.state.version === 3) { //complete and upgrade
       return (
@@ -143,7 +165,6 @@ export default class EcosystemViewPractice extends Component {
           </View>
         </Animated.View>
       </View>
-      )
     }
 
 

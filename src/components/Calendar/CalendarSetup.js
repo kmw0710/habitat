@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Button, Linking, TouchableOpacity } from 'react-native';
+import { Dimensions, View, Text, Image, Button, Linking, TouchableOpacity } from 'react-native';
 import { AuthSession } from 'expo';
 import axios from 'axios';
 import Ecosystem from '../Frontend/EcoSystem';
@@ -47,21 +47,25 @@ export default class CalendarSetup extends Component {
   render() {
     return (
       <View>
-        <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
-          <Button
-            onPress={() => this.props.navigation.navigate('DrawerToggle', {memes: true})}
-            title="&#9776;"
-          />
-        </View>
-        <View style={{ backgroundColor: 'yellow', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
-          {!this.state.sync ? <TouchableOpacity onPress={() => this.calendar()}>
-              <Image style={{ height: 300, width: 350, marginBottom: 100 }} source={require('../assets/googleCalendar.png')} />
-            </TouchableOpacity>
-            : (
-            <CalendarTasks goBack={this.goBack} markers={this.state.markers} categories={this.state.categories} userID={this.state.userID}/>
-          )}        
-        </View>
+        <Image style={{ flex: 1, resizeMode: 'cover', position: 'absolute', height: height, width: width }} source={require('../assets/habit@/sky-bg.png')}>
+          <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
+            <Button
+              onPress={() => this.props.navigation.navigate('DrawerToggle', {memes: true})}
+              title="&#9776;"
+            />
+          </View>
+          <View style={{ height: '100%', justifyContent: 'center' }}>
+            {!this.state.sync ? <TouchableOpacity onPress={() => this.calendar()}>
+                <Image style={{ height: 300, width: 350, marginBottom: 100 }} source={require('../assets/googleCalendar.png')} />
+              </TouchableOpacity>
+              : (
+              <CalendarTasks goBack={this.goBack} markers={this.state.markers} categories={this.state.categories} userID={this.state.userID}/>
+            )}        
+          </View>
+        </Image>
       </View>
     )
   }
 }
+
+const { height, width } = Dimensions.get('window');

@@ -17,7 +17,8 @@ export default class CalendarTasks extends Component {
 			receivedFromGoogle: [],
 			selectedCategory: '',
 			selectedMarker: 'Select location',
-			tasksFromGoogle: []
+      tasksFromGoogle: [],
+      info: ''
     }
     this.notImport = this.notImport.bind(this);
 	}
@@ -29,7 +30,7 @@ export default class CalendarTasks extends Component {
 	}
 
 	getToken = async () => {
-		let redirect = `https://auth.expo.io/@lalapro/habitation`
+		let redirect = `https://auth.expo.io/@lalapro/habitation`;
 		await AuthSession.startAsync({
 			authUrl:
 			`https://accounts.google.com/o/oauth2/v2/auth` +
@@ -102,9 +103,10 @@ export default class CalendarTasks extends Component {
 								}
 							}
 						})
-					}
-				this.setState({ tasksFromGoogle: filtered })
-				})
+          }
+        let info = filtered.length > 0 ? `Today's tasks from Google!` : 'No tasks for today!'
+        this.setState({ tasksFromGoogle: filtered, info: info });
+        })
 			// })
 		}
 
@@ -163,15 +165,17 @@ export default class CalendarTasks extends Component {
 
 	render() {
 		return (
-			<View style={{ flex: 1, width: '100%', marginTop: 50 }}>
-				<Text style={{ fontWeight: 'bold', fontSize: 20, textAlign: 'center', textAlignVertical: 'center', marginBottom: 10 }}>Today's tasks from Google Calendar</Text>
-				<View style={{ flex: 1, backgroundColor: 'red' }}>
-					<ScrollView style={{ flex: 9, backgroundColor: 'blue' }}>
+			<View style={{ flex: 1, width: '100%', marginTop: 30 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 20, textAlign: 'center', textAlignVertical: 'center', marginBottom: 20 }}>
+          {this.state.info}
+        </Text>
+       	<View style={{ flex: 1 }}>
+					<ScrollView style={{ flex: 9 }}>
 						{this.state.tasksFromGoogle ? this.state.tasksFromGoogle.map((task, i) => {
 							return <TaskFromGoogle notImport={this.notImport} userID={this.state.userID} eachIndex={i} key={i} task={task} markers={this.props.markers} categories={this.state.categories} />
 						}) : null}
 					</ScrollView>
-					<View style={{ flexDirection: 'row', flex: 0.3, backgroundColor: 'purple', justifyContent: 'space-around'}}>
+					<View style={{ flexDirection: 'row', flex: 0.2, justifyContent: 'space-around'}}>
 						<TouchableHighlight onPress={() => this.saveAllTasks()}><Text style={{ fontSize: 30 }}>&#x2714;</Text></TouchableHighlight>
 						<TouchableHighlight onPress={() => this.goBack()}><Text style={{ fontSize: 30 }}>&#x274c;</Text></TouchableHighlight>
 					</View>
