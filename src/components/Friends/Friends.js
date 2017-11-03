@@ -51,7 +51,6 @@ export default class Friends extends Component {
 
     axios.get(`https://naturalhabitat.herokuapp.com/mapMarkers`, { params: { userID: friend.Friend}})
     .then(res => {
-      console.log(res.data, 'res data from mapmarkers')
       this.setState({
         selectedLocations: res.data || [],
       })

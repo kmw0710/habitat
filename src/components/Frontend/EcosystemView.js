@@ -18,9 +18,6 @@ export default class EcosystemView extends Component {
   }
 
   componentWillReceiveProps(oldprops) {
-    // console.log(oldprops, 'receiving OLD props...')
-    // console.log(this.props.id, 'receiving ID ')
-    // console.log(this.props.index, 'receiving INDEX OF SWIPER')
     if (this.props.id === this.props.index - 1) {
       this.calculate()
     }

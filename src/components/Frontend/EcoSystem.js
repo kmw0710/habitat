@@ -320,7 +320,6 @@ export default class EcoSystem extends Component {
           <ScrollView horizontal={true}>
             {this.state.locations[this.state.index].tasks ? (
               this.state.locations[this.state.index].tasks.map((task, i) => {
-                console.log(task)
                 return <ProgressBar clock={task.Completion} key={i} task={task} locations={this.state.locations}
                   index={this.state.index} showTask={this.showTask} specificIndex={i}
                   showTask={() => this.showTask(task, this.state.locations[this.state.index].tasks[i], i)}/>

@@ -1,5 +1,4 @@
 const convertDate = (string) => {
-  console.log('in convertDate', string)
   // October 25th 2017, 12:30 pm
 
   let idx = string.indexOf(',');

@@ -20,7 +20,6 @@ const friendLocations = (req, res) => {
     if (err) {
       res.status(404).send(`You have no friends.`);
     } else {
-      console.log(results)
       res.send(results);
     }
   })

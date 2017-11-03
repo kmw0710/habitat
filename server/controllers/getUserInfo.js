@@ -8,10 +8,10 @@ const getUserInfo = (req, res) => {
   let categoryQuery = `SELECT id, Category, Color FROM CategoryDeets WHERE User_ID = '${userID}'`;
 
   db.query(markerQuery, (err, markers) => {
-    if (err) console.log(err);
+    if (err) console.error(err);
     result.markers = markers;
     db.query(categoryQuery, (err, categories) => {
-      if (err) console.log(err);
+      if (err) console.error(err);
       result.categories = categories;
       if (result.category !== '') {
         res.send(result);

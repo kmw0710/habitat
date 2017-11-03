@@ -17,7 +17,6 @@ class TutorialView extends Component {
         <Swiper
           /* index={this.state.index} */
           horizontal={true}
-          onIndexChanged={() => console.log('hi')}
           loop={false}
           style={{marginTop: 40}}
         >

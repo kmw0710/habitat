@@ -8,7 +8,7 @@ const checkGoogle = (req, res) => {
   let checkQuery = `SELECT * FROM Tasks WHERE Google = '${task.Google}'`;
   db.query(checkQuery, (err, existence) => {
     if (err) {
-      console.log(err)
+      console.error(err)
     } else {
       res.send(existence);
     }

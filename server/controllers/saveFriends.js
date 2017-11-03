@@ -27,7 +27,6 @@ const saveFriends = (req, res) => {
               if (err) {
                 res.status(404).send(`We encountered an error looking up your tasks: ${err}`);
               } else {
-                console.log('successfully saved?')
                 res.send('hi')
               }
             })
@@ -38,7 +37,6 @@ const saveFriends = (req, res) => {
                 if (err) {
                   res.status(404).send(`We encountered an error looking up your tasks: ${err}`);
                 } else {
-                  console.log('successfully saved?')
                   res.send('hi')
                 }
               })
