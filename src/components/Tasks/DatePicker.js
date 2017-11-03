@@ -23,7 +23,7 @@ class TaskDatePicker extends Component {
         date={this.state.date}
         mode="datetime"
         placeholder={this.props.placeholder}
-        placeholderTextColor="darkgrey"
+        placeholderTextColor="white"
         color="white"
         format="MMMM Do YYYY, h:mm a"
         minuteInterval = {30}

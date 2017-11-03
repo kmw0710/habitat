@@ -70,8 +70,6 @@ export default class Profile extends Component {
     let current = new Date();
     var date = timezone(current);
     var localDate = date.tz('America/New_York').format();
-
-
     axios.get('https://naturalhabitat.herokuapp.com/categoryPercentage', { params: { username: this.props.screenProps.userID } })
       .then(res => {
         this.setState({
@@ -81,10 +79,13 @@ export default class Profile extends Component {
           this.state.orderedColors.push(category.color);
         })
       })
-      .catch(err => {
-        console.error(err)
+      res.data.forEach(category => {
+        this.state.orderedColors.push(category.color);
       })
-
+    })
+    .catch(err => {
+      console.error(err)
+    })
     axios.get('https://naturalhabitat.herokuapp.com/completedTasks', { params: { username: this.props.screenProps.userID } })
       .then(tasks => {
         tasks.data.forEach(task => {
@@ -162,7 +163,7 @@ export default class Profile extends Component {
       aspect: [4, 3],
       base64: true,
     })
-      .catch(err => console.error(err, 'ERR!!!'))
+    .catch(err => console.error(err, 'ERR!!!'))
     this.handlePicture(picture);
   }
 
@@ -185,10 +186,10 @@ export default class Profile extends Component {
     let uri = picture.base64;
     let pictureText = 'data:image/jpg;base64,' + uri;
     axios.post('https://naturalhabitat.herokuapp.com/pictures', { picture: uri, username: this.state.username })
-      .then(res => {
-        let jpg = 'data:image/jpg;base64,' + res.data.picture;
-        this.setState({ image: jpg })
-      });
+    .then(res => {
+      let jpg = 'data:image/jpg;base64,' + res.data.picture;
+      this.setState({ image: jpg })
+    });
   }
 
   showModal(stat) {
@@ -362,8 +363,6 @@ export default class Profile extends Component {
                             </ScrollView>
                           )}
                       </View>
-                    )}
-                </View>
               </View>
             )}
 

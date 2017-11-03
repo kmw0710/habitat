@@ -334,7 +334,7 @@ export default class EcoSystem extends Component {
       </View>
     ) :
     <View style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
-      <TutorialView navigation={this.props.navigation} />
+      <TutorialView navigation={this.props.navigation}/>
       <Button
         title="Map"
         onPress={() => navigate('Map')}

@@ -150,7 +150,7 @@ export default class Friends extends Component {
                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10}}>
                   <ScrollView horizontal={true}>
                     {this.state.selectedLocations.map((location, i) => {
-                      console.log(location, 'click me')
+
                       return (
                         <TouchableOpacity onPress={() => this.showEcosystem(location)} style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                           <Image source={images[location.Avatar][1]} style={{width: 25, height: 25}}/>

@@ -28,7 +28,6 @@ class ColorPicker extends Component {
   }
 
   setColor(color) {
-    console.log(color)
     this.setState({color});
     this.props.selectColor(color);
   }

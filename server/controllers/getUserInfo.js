@@ -4,7 +4,7 @@ const db = require('../../db/index.js');
 const getUserInfo = (req, res) => {
   let userID = req.query.userID;
   let result = { markers: '', categories: '' };
-  let markerQuery = `SELECT Marker_ID, Marker_Title, Avatar FROM Marker WHERE User_ID = '${userID}'`;
+  let markerQuery = `SELECT Marker_ID, Marker_Title, Ecosystem, Avatar FROM Marker WHERE User_ID = '${userID}'`;
   let categoryQuery = `SELECT id, Category, Color FROM CategoryDeets WHERE User_ID = '${userID}'`;
 
   db.query(markerQuery, (err, markers) => {

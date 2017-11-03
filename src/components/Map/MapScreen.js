@@ -36,7 +36,6 @@ export default class MapScreen extends Component {
     };
     this.goToEditTask = this.goToEditTask.bind(this);
     this.onRegionChange = this.onRegionChange.bind(this);
-    this.startWalking = this.startWalking.bind(this)
   }
   getMarkers() {
     axios.get('https://naturalhabitat.herokuapp.com/mapMarkers', {params: {userID: this.state.userID}})
@@ -166,29 +165,6 @@ export default class MapScreen extends Component {
         )
       }
     })
-  }
-  startWalking() {
-    let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
-    let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
-    let dx = x/20;
-    let dy = y/20;
-    let convolutedMagic = () => {
-      let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
-      let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
-      console.log(x, y)
-      if (Math.abs(x) < 0.0001 || Math.abs(y) < 0.0001) return;
-      this.setState({
-        currentLocation: {
-          coordinate: {
-            latitude: this.state.currentLocation.coordinate.latitude + dx,
-            longitude: this.state.currentLocation.coordinate.longitude + dy,
-          },
-          title: "Current Location",
-          description: "Me"
-        }
-      }, () => setTimeout(convolutedMagic, 300))
-    }
-    convolutedMagic()
   }
   onRegionChange(region) {
     this.setState({region})

@@ -64,6 +64,31 @@ export default class EcosystemViewPractice extends Component {
       duration: 2000
     }).start(() => this.animate3());
   }
+  
+  animateGift() {
+    Animated.timing(this.state.hatchedPosition, {
+      toValue: ({x: 100 + Math.random() * 100, y: 100 + Math.random() * 30}),
+      duration: 2000
+    }).start(() => this.animateGift());
+  }
+
+  hatchGift() {
+    this.setState({
+      version: 6,
+      hatchedPosition: this.state.giftPosition
+    }, () => {
+      this.shouldComponentUpdate(true)
+      this.animateGift()
+    })
+  }
+
+  shouldComponentUpdate(x) {
+    if (x) {
+      return true;
+    } else {
+      return false; 
+    }
+  }
 
   animateGift() {
     Animated.timing(this.state.hatchedPosition, {
@@ -109,7 +134,6 @@ export default class EcosystemViewPractice extends Component {
         </View>
       )
     } else if (this.state.version === 5) { //gift
-      console.log('is true', this.props.img, this.state.version)
       return (
         <View>
           <TouchableOpacity onPress={ this.hatchGift }>
@@ -131,9 +155,9 @@ export default class EcosystemViewPractice extends Component {
             </View>
           </Animated.View>
         </View>
-      )
+      )  
     } else { //dead
-      return (
+      return ( 
         <View>
         <Animated.View style={this.state.deadPosition.getLayout()}>
           <View style={{width: sizeKey[this.state.version], height: sizeKey[this.state.version]}}>
@@ -141,7 +165,6 @@ export default class EcosystemViewPractice extends Component {
           </View>
         </Animated.View>
       </View>
-      )
     }
 
 

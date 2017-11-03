@@ -56,6 +56,7 @@ export default class TaskFromGoogle extends Component {
   render() {
     // console.log(this.state.selectedMarker, 'MARKER ID')
     // console.log(this.props.markers)
+
     return (
       <View style={{ justifyContent: 'center', marginTop: 25, display: 'flex', alignItems: 'center' }}>
         <Text style={styles.title}>{this.props.task.title}</Text>
