@@ -269,7 +269,7 @@ export default class EcoSystem extends Component {
                       <EcosystemViewPractice img={img} key={i} version={2}/>
                     ))
                    : null}
-                   {downgradeImageNumber > 0 ?
+                   {downgradeImageNumber > 0 ? (
                     downgradeImages.map((img, i) => {
                       return (
                         <EcosystemViewPractice img={img} key={i} version={4}/>
