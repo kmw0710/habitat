@@ -184,7 +184,7 @@ export default class Timer extends Component {
 
       return (
         <View>
-          <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
+          <View style={{margin: -10, marginBottom: -12, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
           <Button
             onPress={() => this.props.navigation.navigate('DrawerToggle', {memes: true})}
             title="&#9776;"
@@ -269,7 +269,7 @@ export default class Timer extends Component {
                 </Picker>
               </View>
             </View>
-            <View style={{marginTop: 100}}>
+            <View style={{marginTop: 60}}>
               <Text>
                 T-MINUS : {this.state.timeRemaining} Seconds
               </Text>
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   },
 
   pickerItem: {
-    height: 100,
+    height: 70,
     color: 'red', 
     width: '100%'
   },
@@ -367,7 +367,5 @@ const styles = StyleSheet.create({
 
 const sounds = [
   [0, require("../assets/sounds/tickingclock.mp3")],
-  [1, require("../assets/sounds/trainwhistle.mp3")],
-  [2, require("../assets/Ecosystem/gym.png")],
-  [3, require("../assets/Ecosystem/currentlocation.png")]
+  [1, require("../assets/sounds/trainwhistle.mp3")]
 ];
