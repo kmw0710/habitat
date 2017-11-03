@@ -10,7 +10,8 @@ export default class TaskFromGoogle extends Component {
       selectedMarker: 0,
       selectedCategory: 0,
       index: this.props.eachIndex,
-      imported: false
+      imported: false,
+      selectedValue: 0
     }
   }
 
@@ -18,11 +19,13 @@ export default class TaskFromGoogle extends Component {
     let checkExists = this.props.task;
     axios.get('https://naturalhabitat.herokuapp.com/checkGoogle', { params: { task: checkExists }})
       .then(existence => {
+        console.log(existence.data, 'existence')
         if (existence.data.length > 0) {
           this.setState({
             imported: true
           })
         } else {
+          console.log(this.props.task, 'THIS PROPS TASK< HI?')
           let { task } = this.props;
           task.Marker_ID = this.props.markers[this.state.selectedMarker].Marker_ID;    
           task.Category_ID = this.props.categories[this.state.selectedCategory].id;
@@ -33,9 +36,10 @@ export default class TaskFromGoogle extends Component {
   }
 
   pickLocation(marker) {
-    this.setState({ selectedMarker: marker })
+    let selectedMarker = this.props.markers[marker].Avatar;
+    this.setState({ selectedMarker: selectedMarker, selectedValue: marker });
     let { task } = this.props;
-    task.Marker_ID = this.props.markers[marker].Marker_ID;
+    task.Marker_ID = this.props.markers[this.state.selectedMarker].Marker_ID;
   }
 
   pickCategory(category) {
@@ -50,15 +54,17 @@ export default class TaskFromGoogle extends Component {
 
 
   render() {
-
+    // console.log(this.state.selectedMarker, 'MARKER ID')
+    // console.log(this.props.markers)
+    this.props.task
     return (
-      <View style={{ justifyContent: 'center', marginTop: 15, display: 'flex', alignItems: 'center' }}>
+      <View style={{ backgroundColor: 'green', justifyContent: 'center', marginTop: 15, display: 'flex', alignItems: 'center' }}>
         <Text style={styles.title}>{this.props.task.title}</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           {this.state.imported ? (<View style={{ flex: 9, marginLeft: 10 }}><Text style={styles.imported}>Already Imported!</Text></View>) : (
             <View style={{ flex: 9, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
               <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start' }}>    
-                <Picker onValueChange={(marker) => this.pickLocation(marker)} selectedValue={this.state.selectedMarker}
+                <Picker onValueChange={(marker) => this.pickLocation(marker)} selectedValue={this.state.selectedValue}
                   style={{ width: 100, height: 50 }} itemStyle={{ height: 50 }}>
                 {this.props.markers ? this.props.markers.map((marker, i) => {
                   return <Picker.Item label={marker.Marker_Title} value={i} key={i} />

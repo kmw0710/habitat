@@ -10,12 +10,13 @@ const getMapMarkers = (req, res) => {
   let userID = req.query.userID;
   let currentDay = req.query.currentDay;
   let today = new Date();
-  today = moment(today).format("MMMM Do YYYY");
+  // today = moment(today);
+  console.log(today, 'todays daaaate')
 
   let query = `SELECT * FROM Marker WHERE User_ID = ${userID}`;
   let innerQuery = `SELECT * FROM Tasks WHERE User_ID = ${userID} AND LEFT(Start, LOCATE(',', START) -1)='${today}'`;
   let categoryQuery = `SELECT * FROM CategoryDeets WHERE User_ID = ${userID}`;
-  
+
   db.query(query, null, (err, results) => {
     if (err) {
       res.status(404).send(`We encountered an error looking up the locations ${err}`);
@@ -36,17 +37,17 @@ const getMapMarkers = (req, res) => {
                 let astart = a.Start.split(',')
                 let astartTime = astart[1].split(' ');
                 let ahour = Number(astartTime[1].split(':')[0]);
-                
+
                 if (astartTime[2] === 'pm' && ahour !== 12) {
                   ahour += 12
-                } 
+                }
                 if (astartTime[2] === 'am' && ahour === 12) {
                   ahour = 0;
                 }
                 let bstart = b.Start.split(',')
                 let bstartTime = bstart[1].split(' ');
                 let bhour = Number(bstartTime[1].split(':')[0]);
-                
+
                 if (bstartTime[2] === 'pm' && bhour !== 12) {
                   bhour += 12
                 }
@@ -61,7 +62,7 @@ const getMapMarkers = (req, res) => {
                   return 0;
                 }
               });
-             
+
               db.query(categoryQuery, null, (err, categories) => {
                 if (err) {
                   res.status(404).send(`We encountered an error looking up the categories ${err}`);

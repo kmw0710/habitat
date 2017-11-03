@@ -42,7 +42,6 @@ export default class Profile extends Component {
   }
 
   componentDidMount(day) {
-
     this.setState({
       username: this.props.screenProps.userID,
       dailyTasks: [],
@@ -71,41 +70,37 @@ export default class Profile extends Component {
     let current = new Date();
     var date = timezone(current);
     var localDate = date.tz('America/New_York').format();
-
-
     axios.get('https://naturalhabitat.herokuapp.com/categoryPercentage', { params: { username: this.props.screenProps.userID}})
-      .then(res => {
-        this.setState({
-          categoryPercentage: res.data
-        })
-        res.data.forEach(category => {
-          this.state.orderedColors.push(category.color);
-        })
+    .then(res => {
+      this.setState({
+        categoryPercentage: res.data
       })
-      .catch(err => {
-        console.error(err)
+      res.data.forEach(category => {
+        this.state.orderedColors.push(category.color);
       })
-
+    })
+    .catch(err => {
+      console.error(err)
+    })
     axios.get('https://naturalhabitat.herokuapp.com/completedTasks', { params: { username: this.props.screenProps.userID } })
-      .then(tasks => {
-        tasks.data.forEach(task => {
-          let eachDate = task.Start.split(' ').slice(0, 3).reduce((acc, task) => {
-            return `${acc} ${task}`;
-          });
-          eachDate = eachDate.slice(0, eachDate.length - 1);
-          let key = convertKey(eachDate);
-          // creates an object with keys of dates and values of tasks within those dates
-          this.state.daysWithTask[key] ? this.state.daysWithTask[key].push(task) : this.state.daysWithTask[key] = [task];
-          // creates an object with keys of locations and values of
-          this.state.locations[task.Marker_Title] ? this.state.locations[task.Marker_Title].push(task) : this.state.locations[task.Marker_Title] = [task];
-        })
-        day ? this.grabDailyTasks(day) : this.grabDailyTasks(current); 
+    .then(tasks => {
+      tasks.data.forEach(task => {
+        let eachDate = task.Start.split(' ').slice(0, 3).reduce((acc, task) => {
+          return `${acc} ${task}`;
+        });
+        eachDate = eachDate.slice(0, eachDate.length - 1);
+        let key = convertKey(eachDate);
+        // creates an object with keys of dates and values of tasks within those dates
+        this.state.daysWithTask[key] ? this.state.daysWithTask[key].push(task) : this.state.daysWithTask[key] = [task];
+        // creates an object with keys of locations and values of
+        this.state.locations[task.Marker_Title] ? this.state.locations[task.Marker_Title].push(task) : this.state.locations[task.Marker_Title] = [task];
       })
-      .catch(err => {
-        console.error(err)
-      })
-
-}
+      day ? this.grabDailyTasks(day) : this.grabDailyTasks(current); 
+    })
+    .catch(err => {
+      console.error(err)
+    })
+  }
 
   countTasks() {
     axios.get('https://naturalhabitat.herokuapp.com/countTasks', { params: { username: this.props.screenProps.userID } })
@@ -143,7 +138,7 @@ export default class Profile extends Component {
       aspect: [4, 3],
       base64: true,
     })
-      .catch(err => console.error(err, 'ERR!!!'))
+    .catch(err => console.error(err, 'ERR!!!'))
     this.handlePicture(picture);
   }
 
@@ -165,10 +160,10 @@ export default class Profile extends Component {
     let uri = picture.base64;
     let pictureText = 'data:image/jpg;base64,' + uri;
     axios.post('https://naturalhabitat.herokuapp.com/pictures', { picture: uri, username: this.state.username })
-      .then(res => {
-        let jpg = 'data:image/jpg;base64,' + res.data.picture;
-        this.setState({ image: jpg })
-      });
+    .then(res => {
+      let jpg = 'data:image/jpg;base64,' + res.data.picture;
+      this.setState({ image: jpg })
+    });
   }
 
   showModal(stat) {
@@ -231,9 +226,9 @@ export default class Profile extends Component {
     let tabs = Object.entries(this.state.locations);
     tabs.unshift(['Overview'])
 
-
     return (
-      <View style={{ flex: 1, backgroundColor: '#ddd' }}>
+      <View style={styles.container}>
+        <Image source={require(`../assets/habit@/sky-bg.png`)} style={{opacity: 0.8}}>
         <View style={{ marginLeft: 5, marginTop: 20, alignItems: 'flex-start' }}>
           <Button
             onPress={() => this.props.navigation.navigate('DrawerToggle')}
@@ -361,6 +356,7 @@ export default class Profile extends Component {
                     </View>
                   )}
               </View>
+              
             </View>
           )}
 
@@ -397,6 +393,7 @@ export default class Profile extends Component {
             </View>
           </View>
         </Modal>
+        </Image>
       </View>
     );
   }
@@ -441,6 +438,10 @@ const images = [
 ]
 
 const styles = StyleSheet.create({
+  container: { 
+    marginTop: 22,
+    flex: 1, 
+    backgroundColor: '#ddd' },
   top: {
     flex: 0.5,
     alignItems: 'flex-start',

@@ -22,7 +22,6 @@ export default class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      // user: this.props.navigation.state.params.user_ID,
       avatar: this.props.navigation.state.params.avatar,
       title: this.props.navigation.state.params.title,
       description: this.props.navigation.state.params.description,
@@ -49,10 +48,11 @@ export default class AddLocation extends React.Component {
     const { params } = this.props.navigation.state;
     if (this.state.avatar !== '') {
       return (
-        <View style={styles.container}>
+        <Image style={styles.container} source={backgrounds[this.state.eco][1]}>
           <Image source={images[this.state.avatar][1]} style={styles.ecobuds}/>
           <Text style={styles.cardtitle}>{this.state.title}</Text>
           <GooglePlacesAutocomplete
+            style={styles.input}
             placeholder='Enter Location'
             minLength={2}
             autoFocus={false}
@@ -74,7 +74,7 @@ export default class AddLocation extends React.Component {
               }))
             }}
           />
-        </View>
+        </Image>
       )
     } else {
       return null;
@@ -88,19 +88,37 @@ const images = [
   [2, require("../assets/Ecosystem/gym.png")]
 ]
 
+const backgrounds = [
+  [0, require("../assets/habit@/water-bg.png")],
+  [1, require("../assets/habit@/sky-bg.png")],
+  [2, require("../assets/habit@/leaf-bg.png")],
+]
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: -50
   },
   ecobuds: {
     width: 100,
     height: 100,
+    marginTop: 50,
     resizeMode: 'contain'
   },
   cardtitle: {
     fontSize: 20,
     marginTop: 5,
     fontWeight: "bold",
+  },
+  input: {
+    backgroundColor: '#99CCFF',
+    borderRadius: 30,
+    borderWidth: 0.5,
+    borderColor: 'black',
+    width: 330,
+    left: -3
   }
 })

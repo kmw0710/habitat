@@ -42,7 +42,6 @@ export default class MapScreen extends Component {
   getMarkers() {
     axios.get('https://naturalhabitat.herokuapp.com/mapMarkers', {params: {userID: this.state.userID}})
      .then(markers => {
-       console.log(markers.data, 'after getting markers')
        this.setState({markers: markers.data})
      })
      .then(res => {
@@ -171,10 +170,8 @@ export default class MapScreen extends Component {
   }
   fakeWalk(region) {
     if (!region) {
-      console.log('show icon')
       this.setState({fakeWalk: !this.state.fakeWalk})
     } else {
-      console.log('is walking?')
       this.setState({ walkTo: region}, () => setTimeout(this.startWalking, 300))
     }
   }
@@ -186,7 +183,6 @@ export default class MapScreen extends Component {
     let convolutedMagic = () => {
       let x = this.state.walkTo.latitude - this.state.currentLocation.coordinate.latitude;
       let y = this.state.walkTo.longitude - this.state.currentLocation.coordinate.longitude;
-      console.log(x, y)
       if (Math.abs(x) < 0.0001 || Math.abs(y) < 0.0001) return;
       this.setState({
         currentLocation: {

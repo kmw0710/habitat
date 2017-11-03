@@ -19,18 +19,18 @@ export default class Title extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    let avatar = this.props.navigation.state.params.avatar;
-    let eco = this.props.navigation.state.params.eco;
+    let avatar = this.props.navigation.state.params.avatar || 0;
+    let eco = this.props.navigation.state.params.eco || 0;
     return (
-      <View style={styles.container}>
+      <Image style={styles.container} source={backgrounds[eco][1]}>
         <Image source={images[avatar][1]} style={styles.ecobuds}/>
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1, width: 100}}
+          style={styles.input}
           onChangeText={(e) => this.setState({title: e})}
           value={this.state.title}
         />
         <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1, width: 200}}
+          style={styles.input}
           onChangeText={(e) => this.setState({description: e})}
           value={this.state.description}
         />
@@ -39,7 +39,7 @@ export default class Title extends React.Component {
           title="Next"
           color="#841584"
         />
-      </View>
+      </Image>
     );
   }
 }
@@ -50,15 +50,35 @@ const images = [
   [2, require("../assets/Ecosystem/gym.png")]
 ]
 
+const backgrounds = [
+  [0, require("../assets/habit@/water-bg.png")],
+  [1, require("../assets/habit@/sky-bg.png")],
+  [2, require("../assets/habit@/leaf-bg.png")],
+]
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    left: -50
   },
   ecobuds: {
     width: 100,
     height: 100,
+    marginBottom: 20,
     resizeMode: 'contain'
+  },
+  input: {
+    height: 40,
+    backgroundColor: '#99CCFF',
+    borderRadius: 30,
+    borderWidth: 0.5,
+    borderColor: 'black',
+    width: 150,
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: 5,
+    textAlign: 'center'
   }
 })
