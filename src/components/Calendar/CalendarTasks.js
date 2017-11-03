@@ -189,5 +189,5 @@ const images = [
 	[0, require("../assets/Ecosystem/home.png")],
 	[1, require("../assets/Ecosystem/work.png")],
 	[2, require("../assets/Ecosystem/gym.png")],
-	[3, require("../assets/Ecosystem/currentlocation.png")]
+	[3, require("../assets/habit@/location.png")]
 ]
