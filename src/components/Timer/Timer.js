@@ -156,15 +156,11 @@ export default class Timer extends Component {
           }
         })
         .then(res => {
-          console.log(res.data[0], '*********')
           this.setState({
             render: true,
             negativePoints: res.data[0].Negative_Points,
             mdPositivePoints: res.data[0].Medium_Positive_Points,
             lgPositivePoints: res.data[0].Large_Positive_points
-          }, () => {
-            console.log(this.state.currentImageIndex, '---------', this.state.lgPositivePoints )
-            
           })
         })
         .catch(err => console.error(err));
