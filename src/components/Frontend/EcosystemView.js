@@ -56,17 +56,7 @@ export default class EcosystemView extends Component {
     })
   }
 
-
-  test() {
-    if(this.props.id === this.props.index) {
-      console.log('TRUEEEEEEEEEE')
-    }
-  }
-
-
-
   render() {
-    // console.log(this.state.location, 'locationtionaoin')
     return (
       <View style={{alignItems: 'center', justifyContent: 'center'}}>
         <Image

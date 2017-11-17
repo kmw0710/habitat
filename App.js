@@ -44,7 +44,7 @@ export default class App extends React.Component {
           this.setState({
             user: user.data[0].ID,
             giftPoints: user.data[0].Gift_Points,
-          }, () => {console.log('in app at auto login', this.state)})
+          }, () => {})
         }
       })
       .catch(err => console.error(err))

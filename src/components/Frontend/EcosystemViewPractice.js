@@ -35,8 +35,6 @@ export default class EcosystemViewPractice extends Component {
     } else if (this.state.version === 0 || this.state.version === 4) {
       this.animate2();
     } else {
-      // version === 0
-      console.log('should trigger')
       this.animate3();
     }
   }
@@ -98,7 +96,6 @@ export default class EcosystemViewPractice extends Component {
   }
 
   hatchGift() {
-    console.log('invoked')
     this.setState({
       version: 6,
       hatchedPosition: this.state.giftPosition
@@ -146,7 +143,6 @@ export default class EcosystemViewPractice extends Component {
         </View>
       )
     } else if (this.state.version === 6) { //hatched
-      console.log('in render', this.state.version)
       return (
         <View>
           <Animated.View style={this.state.hatchedPosition.getLayout()}>
@@ -165,7 +161,7 @@ export default class EcosystemViewPractice extends Component {
           </View>
         </Animated.View>
       </View>
-    }
+      )}
 
 
     // return (

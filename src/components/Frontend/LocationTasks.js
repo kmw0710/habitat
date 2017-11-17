@@ -51,7 +51,6 @@ export default class LocationTasks extends Component {
 
   render() {
     let { task } = this.props;
-    console.log(this.props.task.Completion === "True")
     return (
       <View>
         <TouchableOpacity onPress={() => this.showEdit(this.props.task)}>

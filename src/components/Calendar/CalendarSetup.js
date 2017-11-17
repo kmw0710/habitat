@@ -28,7 +28,6 @@ export default class CalendarSetup extends Component {
   getUserInfo() {
     axios.get('https://naturalhabitat.herokuapp.com/getUserInfo', { params: { userID: this.props.screenProps.userID }})
       .then(information => {
-        console.log(information.data, 'information')
         let { markers, categories } = information.data;
         this.setState({ markers, categories });
       })

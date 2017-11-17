@@ -38,7 +38,6 @@ routes.post('/categories', handleNewCategories);
 routes.get('/markers', handleMarkers);
 routes.post('/newLocation', handleNewLocation);
 routes.get('/mapMarkers', getMapMarkers);
-routes.get('/tasks', handleTasks)
 routes.delete('/deleteTask', handleDeleteTasks);
 routes.get('/tasks', handleTasks);
 routes.post('/pictures', handlePicture);

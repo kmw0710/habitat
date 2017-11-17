@@ -39,7 +39,6 @@ export default class Friends extends Component {
   }
 
   selectFriend(friend, key) {
-    console.log(friend, 'friend')
     this.setState({
       selectedLocations: [],
       upgradeImages: [],
@@ -52,7 +51,6 @@ export default class Friends extends Component {
 
     axios.get(`https://naturalhabitat.herokuapp.com/mapMarkers`, { params: { userID: friend.Friend}})
     .then(res => {
-      console.log(res.data, 'after call')
       this.setState({
         selectedLocations: res.data || [],
       })
@@ -61,7 +59,6 @@ export default class Friends extends Component {
   }
 
   showEcosystem(location) {
-    // console.log(location)
     this.setState({
       selectedEco: location.Ecosystem,
       selectedLocation: [],
@@ -107,8 +104,8 @@ export default class Friends extends Component {
       userId: this.state.userId,
       friendEcosystem: this.state.selectedLocation
     })
-    .then(res => console.log(res.data))
-    .catch(err => console.error(err))
+    .then(res => console.log())
+    .catch(err => console.error())
   }
 
   checkAsyncStorage = async () => {

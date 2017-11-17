@@ -80,6 +80,7 @@ const getMapMarkers = (req, res) => {
                   })
                   count++;
                   if (count === length) {
+                    console.log(results, 'is it?')
                     res.send(results)
                   }
                 }

@@ -2,7 +2,6 @@ const express = require('express');
 const db = require('../../db/index.js');
 
 const saveFriends = (req, res) => {
-  // console.log(req.body)
   let user = req.body.user;
   let username = req.body.username;
   let user_fb_id = req.body.userfbID;

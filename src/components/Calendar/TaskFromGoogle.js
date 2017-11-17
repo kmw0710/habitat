@@ -19,13 +19,11 @@ export default class TaskFromGoogle extends Component {
     let checkExists = this.props.task;
     axios.get('https://naturalhabitat.herokuapp.com/checkGoogle', { params: { task: checkExists }})
       .then(existence => {
-        console.log(existence.data, 'existence')
         if (existence.data.length > 0) {
           this.setState({
             imported: true
           })
         } else {
-          console.log(this.props.task, 'THIS PROPS TASK< HI?')
           let { task } = this.props;
           task.Marker_ID = this.props.markers[this.state.selectedMarker].Marker_ID;    
           task.Category_ID = this.props.categories[this.state.selectedCategory].id;
@@ -54,8 +52,6 @@ export default class TaskFromGoogle extends Component {
 
 
   render() {
-    // console.log(this.state.selectedMarker, 'MARKER ID')
-    // console.log(this.props.markers)
 
     return (
       <View style={{ justifyContent: 'center', marginTop: 25, display: 'flex', alignItems: 'center' }}>

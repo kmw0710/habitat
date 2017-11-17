@@ -76,7 +76,7 @@ export default class Timer extends Component {
                       Medium_Positive_Points: this.state.mdPositivePoints,
                       Large_Positive_Points: this.state.lgPositivePoints
                     })
-                    .then(res => console.log(res))
+                    .then(res => console.log())
                     .catch(err => console.error(err))
                   })
                 })
@@ -101,7 +101,7 @@ export default class Timer extends Component {
                 user_ID: this.state.userID,
                 Negative_Points: this.state.negativePoints
               })
-              .then(res => console.log('axios put worked'))
+              .then(res => console.log())
               .catch(err => console.error(err))
             })
           })

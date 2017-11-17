@@ -16,13 +16,11 @@ const CalendarControler = (req, res) => {
 
     db.query(checkQuery, (err, result) => {
       if (result.length !== 0) {
-        console.log('already exists!')
       } else {
         let eachQuery = `INSERT INTO Tasks 
         (Task_Title, Task_Description, Start, End, Frequency, User_ID, Marker_ID,Category_ID, Google) 
         VALUES ('${title}', '${description}', '${start}', '${end}', '${frequency}', '${userID}', '${Marker_ID}', '${Category_ID}', '${Google}' )`
         db.query(eachQuery, (err, result) => {
-          console.log(result);
         })
       }
     })

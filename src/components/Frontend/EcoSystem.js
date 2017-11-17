@@ -10,7 +10,6 @@ import GetCurrentLocation from '../Map/GetCurrentLocation';
 import geodist from 'geodist';
 import ProgressBar from './ProgressBar'
 import convertDate from '../../../server/controllers/convertDate';
-// import EcosystemView from './EcosystemView.js'
 import EcosystemViewPractice from './EcosystemViewPractice';
 
 export default class EcoSystem extends Component {
@@ -53,18 +52,17 @@ export default class EcoSystem extends Component {
         }
       })
     })
-    .catch(err => console.error(err))
+      .catch(err => console.error(err))
     this.setState({
       userID: this.props.screenProps.userID,
     }, () => this.getMarkers())
   }
 
-
-
   getMarkers() {
     axios.get('https://naturalhabitat.herokuapp.com/mapMarkers', { params: { userID: this.state.userID, currentDay: true } })
       .then(res => {
-        this.setState({ locations: res.data })
+        let locations = res.data;
+        this.setState({ locations })
       })
       .then(res => this.showCurrentLocation())
       .catch(err => console.error(err))
@@ -74,7 +72,7 @@ export default class EcoSystem extends Component {
     let locations = this.state.locations;
     if (locations.length > 0) {
       for (let i = 0; i < locations.length; i++) {
-        let dist = geodist({lat: locations[i].Latitude, lon: locations[i].Longitude}, {lat: this.state.currentLocation.latitude, lon: this.state.currentLocation.longitude}, {exact: true, unit: 'km'})
+        let dist = geodist({ lat: locations[i].Latitude, lon: locations[i].Longitude }, { lat: this.state.currentLocation.latitude, lon: this.state.currentLocation.longitude }, { exact: true, unit: 'km' })
         if (dist < 0.05) {
           this.setState({
             index: i,
@@ -83,11 +81,11 @@ export default class EcoSystem extends Component {
           break;
         }
         if (i === locations.length - 1) {
-          this.setState({render: true})
+          this.setState({ render: true })
         }
       }
     } else {
-      this.setState({render: true})
+      this.setState({ render: true })
     }
   }
 
@@ -105,15 +103,14 @@ export default class EcoSystem extends Component {
     })
   }
 
-
   editTask(task) {
     this.props.navigation.navigate('TaskBuilder', { specificTask: this.state.editSpecificTask, editing: true })
   }
 
   deleteTask() {
-    axios.delete('https://naturalhabitat.herokuapp.com/deleteTask', {params: {userID: this.state.userID, taskTitle: this.state.currentTask}})
-    .then(res => this.getMarkers())
-    .catch(err => console.error(err))
+    axios.delete('https://naturalhabitat.herokuapp.com/deleteTask', { params: { userID: this.state.userID, taskTitle: this.state.currentTask } })
+      .then(res => this.getMarkers())
+      .catch(err => console.error(err))
   }
 
   yayTask() {
@@ -133,12 +130,12 @@ export default class EcoSystem extends Component {
       markerId: this.state.locations[this.state.index].Marker_ID,
       positivePoints: positivePoints
     })
-    .then((res) => {
-      this.markTaskComplete();
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+      .then((res) => {
+        this.markTaskComplete();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   nayTask() {
@@ -157,16 +154,16 @@ export default class EcoSystem extends Component {
       markerId: this.state.locations[this.state.index].Marker_ID,
       negativePoints: negativePoints
     })
-    .then((res) => {
-      this.markTaskComplete();
-    })
-    .catch((err) => {
-      console.error(err);
-    })
+      .then((res) => {
+        this.markTaskComplete();
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   markTaskComplete() {
-    this.setState({completedSun: true});
+    this.setState({ completedSun: true });
     this.componentDidMount();
   }
 
@@ -179,13 +176,13 @@ export default class EcoSystem extends Component {
         backgroundColor: '#f4a316',
         underlayColor: 'rgba(0, 0, 0, 0.6)',
         onPress: () => { this.editTask() }
-     },
+      },
       {
         text: 'Delete',
         backgroundColor: 'red',
         underlayColor: 'rgba(0, 0, 0, 0.6)',
         onPress: () => { this.deleteTask() }
-     }
+      }
     ];
     const swipeLeftBtns = [
       {
@@ -193,34 +190,34 @@ export default class EcoSystem extends Component {
         backgroundColor: 'green',
         underlayColor: 'rgba(0, 0, 0, 0.6)',
         onPress: () => { this.yayTask() }
-     },
+      },
       {
         text: 'Nay',
         backgroundColor: 'brown',
         underlayColor: 'rgba(0, 0, 0, 0.6)',
         onPress: () => { this.nayTask() }
-     }
+      }
     ];
     return this.state.render ? (this.state.locations.length > 0 ? (
       <View style={styles.wrapper}>
-        <View style={{margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start'}}>
+        <View style={{ margin: -10, marginLeft: 5, marginTop: 20, alignItems: 'flex-start' }}>
           <Button
-            onPress={() => this.props.navigation.navigate('DrawerToggle', {memes: true})}
+            onPress={() => this.props.navigation.navigate('DrawerToggle', { memes: true })}
             title="&#9776;"
           />
         </View>
-        <View style={{flex: 8, marginBottom: 1, height: '75%'}}>
+        <View style={{ flex: 8, marginBottom: 1, height: '75%' }}>
           <Swiper
             index={this.state.index}
             horizontal={true}
-            onIndexChanged={(index) => this.setState({index: index, toggleShow: false})}
+            onIndexChanged={(index) => this.setState({ index: index, toggleShow: false })}
             loop={false}
           >
             {this.state.locations.map((location, index) => {
-              var upgradeImageNumber = Math.floor(location.PositivePoints/10);
-              var positiveImageNumber = location.PositivePoints%10;
-              var downgradeImageNumber = Math.floor(location.NegativePoints/4);
-              var negativeImageNumber = location.NegativePoints%4;
+              var upgradeImageNumber = Math.floor(location.PositivePoints / 10);
+              var positiveImageNumber = location.PositivePoints % 10;
+              var downgradeImageNumber = Math.floor(location.NegativePoints / 4);
+              var negativeImageNumber = location.NegativePoints % 4;
               var giftPointNumber = location.GiftPoints;
               upgradeImages = new Array(upgradeImageNumber);
               upgradeImages.fill(location.Ecosystem);
@@ -234,116 +231,121 @@ export default class EcoSystem extends Component {
               giftImages.fill(location.Ecosystem);
 
               return (
-              // put backgroundImage in the style
-              <View key={index} style={{alignItems: 'center', justifyContent: 'center'}}>
-                <View style={{flexDirection: 'row', height: 60, marginTop: '20%', marginBottom: 10}}>
-                  <Image
-                    source={images[location.Avatar][1]}
-                    style={{width: 50, height: 50, resizeMode: 'contain'}}
-                  />
-                  <Image
-                    source={require('../assets/habit@/logo.png')}
-                    style={{height: 50, width: 100, resizeMode: 'contain'}}
-                  />
-                </View>
-                  <Text style={styles.cardtitle}>
-                    {location.Marker_Title}
-                  </Text>
-                <Text style={styles.cardDescription}>
-                  {location.Marker_Description}
-                </Text>
-                <Image style={{height: '100%', width: '100%'}} source={backgrounds[location.Ecosystem][1]}>
-                <View style={{flex: 1, flexDirection:'row', flexWrap: 'wrap'}} >
-                  {location.tasks ? (
-                    location.tasks.map((task, i) => {
-                      if (task.Completion === null) {
-                        return (
-                          <EcosystemViewPractice img={task.Ecosystem} key={i} version={1}/>
-                        )
-                      } else {
-                        return null
-                      }
-                    })) : null}
-                  {location.PositivePoints ?
-                    posImages.map((img, i) => (
-                      <EcosystemViewPractice img={img} key={i} version={2}/>
-                    ))
-                   : null}
-                   {downgradeImageNumber > 0 ? (
-                    downgradeImages.map((img, i) => {
-                      return (
-                        <EcosystemViewPractice img={img} key={i} version={4}/>
-                      )
-                    })
-                  ) : null}
-                  {upgradeImageNumber > 0 ?
-                    upgradeImages.map((img, i) => {
-                      return (
-                        <EcosystemViewPractice img={img} key={i} version={0}/>
-                      )
-                    })
-                  : null}
-                  {location.GiftPoints ?
-                    giftImages.map((img, i) => {
-                      console.log(location.GiftPoints, 'LOCATION GIFT POINTS')
-                      return (
-                        <EcosystemViewPractice img={img} key={i} version={5}/>
-                      )
-                    })
-                  : null}
-
+                // put backgroundImage in the style
+                <View key={index} style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View style={{ flexDirection: 'row', height: 60, marginTop: '20%', marginBottom: 10 }}>
+                    <View>
+                      <Image
+                        source={images[location.Avatar][1]}
+                        style={{ width: 50, height: 50, resizeMode: 'contain' }}
+                      />
+                      </View>
+                      <View>
+                      <Image
+                        source={require('../assets/habit@/logo.png')}
+                        style={{ height: 50, width: 100, resizeMode: 'contain' }}
+                      />
+                    </View>
+                    <View>
+                      <Text style={styles.cardtitle}>
+                        {location.Marker_Title}
+                      </Text>
+                      <Text style={styles.cardDescription}>
+                        {location.Marker_Description}
+                      </Text>
+                    </View>
                   </View>
+                  <Image style={{ height: '100%', width: '100%' }} source={backgrounds[location.Ecosystem][1]}>
+                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }} >
+                      {location.tasks ? (
+                        location.tasks.map((task, i) => {
+                          if (task.Completion === null) {
+                            return (
+                              <EcosystemViewPractice img={task.Ecosystem} key={i} version={1} />
+                            )
+                          } else {
+                            return null
+                          }
+                        })) : null}
+                      {location.PositivePoints ?
+                        posImages.map((img, i) => (
+                          <EcosystemViewPractice img={img} key={i} version={2} />
+                        ))
+                        : null}
+                      {downgradeImageNumber > 0 ? (
+                        downgradeImages.map((img, i) => {
+                          return (
+                            <EcosystemViewPractice img={img} key={i} version={4} />
+                          )
+                        })
+                      ) : null}
+                      {upgradeImageNumber > 0 ?
+                        upgradeImages.map((img, i) => {
+                          return (
+                            <EcosystemViewPractice img={img} key={i} version={0} />
+                          )
+                        })
+                        : null}
+                      {location.GiftPoints ?
+                        giftImages.map((img, i) => {
+                          return (
+                            <EcosystemViewPractice img={img} key={i} version={5} />
+                          )
+                        })
+                        : null}
+                    </View>
                   </Image>
-              </View>
-            )})}
+                </View>
+              )
+            })}
           </Swiper>
           {this.state.toggleShow ? (
-          <View style={{marginTop: 0, height: 60, backgroundColor: 'rgba(52, 52, 52, 0.05)'}}>
-            <Swipeout
-              right={swipeRightBtns}
-              left={swipeLeftBtns}
-              autoClose={true}
-              backgroundColor= 'transparent'
-            >
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{lineHeight: 0.2, fontSize: 16, fontWeight: 'bold'}}>
-                  {this.state.currentTask}
-                </Text>
-                <Text style={{fontSize: 14, lineHeight: 0.2}}>
-                  {this.state.currentDescription}
-                </Text>
-                <Text style={{margin: 2, lineHeight: 0.2}}>{this.state.currentTaskCategory}</Text>
-              </View>
-            </Swipeout>
-          </View>) : null }
+            <View style={{ marginTop: 0, height: 60, backgroundColor: 'rgba(52, 52, 52, 0.05)' }}>
+              <Swipeout
+                right={swipeRightBtns}
+                left={swipeLeftBtns}
+                autoClose={true}
+                backgroundColor='transparent'
+              >
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ lineHeight: 0.2, fontSize: 16, fontWeight: 'bold' }}>
+                    {this.state.currentTask}
+                  </Text>
+                  <Text style={{ fontSize: 14, lineHeight: 0.2 }}>
+                    {this.state.currentDescription}
+                  </Text>
+                  <Text style={{ margin: 2, lineHeight: 0.2 }}>{this.state.currentTaskCategory}</Text>
+                </View>
+              </Swipeout>
+            </View>) : null}
         </View>
-        <View style={{flex: 2.5}}>
+        <View style={{ flex: 2.5 }}>
           <ScrollView horizontal={true}>
             {this.state.locations[this.state.index].tasks ? (
               this.state.locations[this.state.index].tasks.map((task, i) => {
                 return <ProgressBar clock={task.Completion} key={i} task={task} locations={this.state.locations}
                   index={this.state.index} showTask={this.showTask} specificIndex={i}
-                  showTask={() => this.showTask(task, this.state.locations[this.state.index].tasks[i], i)}/>
+                  showTask={() => this.showTask(task, this.state.locations[this.state.index].tasks[i], i)} />
               })
-          ) : null}
-            <TouchableOpacity onPress={() => { navigate('TaskBuilder')}}>
-              <Image source={require('../assets/plus.png')} style={{marginTop: 20, height: 135, width: 135, resizeMode: 'contain'}} />
+            ) : null}
+            <TouchableOpacity onPress={() => { navigate('TaskBuilder') }}>
+              <Image source={require('../assets/plus.png')} style={{ marginTop: 20, height: 135, width: 135, resizeMode: 'contain' }} />
             </TouchableOpacity>
           </ScrollView>
         </View>
       </View>
     ) :
-    <View style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
-      <TutorialView navigation={this.props.navigation}/>
-      <Button
-        title="Map"
-        onPress={() => navigate('Map')}
-      />
-    </View>
-  ) :
-  <View style={{flex: 1, alignItems: 'center', justifyContent:'center'}}>
-    <Image source={require('../assets/loading2.gif')} style={{width: 400, height: 400}}/>
-  </View>
+      <View style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <TutorialView navigation={this.props.navigation} />
+        <Button
+          title="Map"
+          onPress={() => navigate('Map')}
+        />
+      </View>
+    ) :
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Image source={require('../assets/loading2.gif')} style={{ width: 400, height: 400 }} />
+      </View>
   }
 }
 
@@ -393,7 +395,6 @@ const styles = StyleSheet.create({
   },
   cardtitle: {
     fontSize: 35,
-    // marginTop: 5,
     fontWeight: "bold",
     color: '#FF3300'
   },
@@ -402,20 +403,21 @@ const styles = StyleSheet.create({
     color: "#FF6600",
   },
   circle: {
-   width: 120,
-   height: 120,
-   borderRadius: 120,
-  //  borderColor: 'red',
-   borderWidth: 0.5,
-   margin: 5,
-   display: 'flex',
-   alignItems: 'center',
-   justifyContent: 'center'
- },
+    width: 120,
+    height: 120,
+    borderRadius: 120,
+    borderWidth: 0.5,
+    margin: 5,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   separator: {
     flex: .005,
     height: 1,
     backgroundColor: '#8A7D80',
-    // marginLeft: 15
   }
 })
+
+// https://naturalhabitat.herokuapp.com
+// https://naturalhabitat.herokuapp.com
