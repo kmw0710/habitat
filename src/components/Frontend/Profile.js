@@ -317,8 +317,8 @@ export default class Profile extends Component {
                       pieHeight={150}
                       colors={this.state.orderedColors}
                       onItemSelected={this._onPieItemSelected.bind(this)}
-                      width={180}
-                      height={180}
+                      width={13000}
+                      height={13000}
                       data={this.state.categoryPercentage} />
                   ) : (
                       <View style={{ flex: 1 }}>
@@ -370,7 +370,7 @@ export default class Profile extends Component {
           <CalendarStrip
             calendarAnimation={{ type: 'sequence', duration: 30 }}
             daySelectionAnimation={{ type: 'background', duration: 300, highlightColor: '#9265DC' }}
-            style={{ height: 80 }}
+            style={{ height: 65 }}
             calendarHeaderStyle={{ color: 'white' }}
             calendarColor={'#7743CE'}
             dateNumberStyle={{ color: 'white' }}

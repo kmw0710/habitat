@@ -30,7 +30,8 @@ export default class CalendarTasks extends Component {
 	}
 
 	getToken = async () => {
-		let redirect = `https://auth.expo.io/@lalapro/habitation`;
+		let redirect = `https://auth.expo.io/@kmw0710/habitation`;
+		let a = AuthSession.getRedirectUrl();
 		await AuthSession.startAsync({
 			authUrl:
 			`https://accounts.google.com/o/oauth2/v2/auth` +
@@ -103,7 +104,17 @@ export default class CalendarTasks extends Component {
 								}
 							}
 						})
-          }
+					}
+				axios({
+					method: 'get',
+					url: 'https://accounts.google.com/o/oauth2/revoke',
+					params: {
+						token: token
+					}
+				})
+					.then(revoked => {
+						console.log(revoked.data)
+					})
         let info = filtered.length > 0 ? `Today's tasks from Google!` : 'No tasks for today!'
         this.setState({ tasksFromGoogle: filtered, info: info });
         })
@@ -191,3 +202,4 @@ const images = [
 	[2, require("../assets/Ecosystem/gym.png")],
 	[3, require("../assets/habit@/location.png")]
 ]
+

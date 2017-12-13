@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     height: 30,
     marginTop: 10,
     paddingHorizontal: 10,
-    color: '#8A7D80',
-    borderColor: '#8A7D80',
+    color: '#8A7D',
+    borderColor: '#8A7D',
     borderWidth: 1
   },
   picker: {

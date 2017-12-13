@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: '#8A7D80',
-    borderColor: '#8A7D80',
+    color: '#8A7D',
+    borderColor: '#8A7D',
     borderBottomWidth: 1,
     color: 'white',
     textAlign: 'center'

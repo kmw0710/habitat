@@ -29,7 +29,7 @@ class CategoryPicker extends Component {
 
 	grabCategories(specific) {
 
-		axios.get('https://naturalhabitat.herokuapp.com/categories', {params: {userID: this.props.userID}})
+		axios.get('https://naturalhabitat.herokuapp.comcategories', {params: {userID: this.props.userID}})
 			.then((response) => {
 				let categories = response.data;
 				this.setState({
@@ -96,7 +96,7 @@ class CategoryPicker extends Component {
 		let color = this.state.color;
 		if (category.length > 1 && color) {
 
-			axios.post('https://naturalhabitat.herokuapp.com/categories', {category, color, userID: this.props.userID})
+			axios.post('https://naturalhabitat.herokuapp.comcategories', {category, color, userID: this.props.userID})
 			.then(response => {
 				this.grabCategories(category)
 				this.setState({ newCategory: '' })
@@ -161,8 +161,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     paddingHorizontal: 10,
-    color: '#8A7D80',
-    borderColor: '#8A7D80',
+    color: '#8A7D',
+    borderColor: '#8A7D',
     borderBottomWidth: 1,
     color: 'white'
   },

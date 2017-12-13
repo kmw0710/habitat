@@ -114,7 +114,7 @@ styles = StyleSheet.create({
   separator: {
     height: 1,
     width: 400,
-    backgroundColor: '#8A7D80',
+    backgroundColor: '#fff',
     marginLeft: 15
   },
   button: {

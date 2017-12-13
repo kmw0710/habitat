@@ -114,8 +114,8 @@ export default class Timer extends Component {
       let currentTime = new Date();
       this.setState({
         duration,
-        mdUpgrade: (duration < 1800000),
-        lgUpgrade: (duration >= 1800000)
+        mdUpgrade: (duration < 130000000),
+        lgUpgrade: (duration >= 130000000)
       });
       let timePassed = currentTime.getTime() - startTime.getTime();
       let timeRemaining = Math.round((duration - timePassed + 400) / 1000);

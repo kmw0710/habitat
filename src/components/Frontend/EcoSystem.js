@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   separator: {
     flex: .005,
     height: 1,
-    backgroundColor: '#8A7D80',
+    backgroundColor: '#8A7D',
   }
 })
 
