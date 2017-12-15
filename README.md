@@ -1,4 +1,4 @@
-# Project Title
+# Natural Habit@
 
 A location based IOS/Android mobile application that allows users to stay productive and motivated with gamification and animated rewarding features
 
