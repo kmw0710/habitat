@@ -1,6 +1,8 @@
 # Natural Habit@
 
 A location based IOS/Android mobile application that allows users to stay productive and motivated with gamification and animated rewarding features
+[Natural Habitat.pptx](https://github.com/Angular-Toast/habitat/files/1557352/Natural.Habitat.pptx)
+
 
 ### Motivation
 
