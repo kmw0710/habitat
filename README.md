@@ -42,7 +42,7 @@ Facebook Developer
 * **_[Minwoo Kim](https://github.com/kmw0710)_**
 * **_[Katie Blacketor](https://github.com/blackeka)_**
 * **_[Jonathan Yuen](https://github.com/lalapro)_**
-* **_[Janine Garcia](https://github.com/dustykim)_**
+* **_[Dustin Kim](https://github.com/dustykim)_**
 
 ## License
 
