@@ -2,6 +2,7 @@
 
 A location based IOS/Android mobile application that allows users to stay productive and motivated with gamification and animated rewarding features
 
+See details **_[Natural Habit@](https://minwoo.herokuapp.com/#/naturalhabitat)_**
 ### Motivation
 
 While there are many applications that helps to enhance productivity, the most crucial tool is a good to-do list. However, most existing tools in the market lack accessbility and customizability. This application effectively aims to provide a to-do list based on the location with a customized theme on a mobile device. Through linking with facebook and google calendar features, you can share and compare your status with friends and have alerts throughout your daily activities.
