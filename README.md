@@ -37,6 +37,13 @@ Facebook Developer
 * Firebase
 * D3
 
+## Credit
+
+* Minwoo Kim
+* Katie Blacketor
+* Jonathan Yuen
+* Dustin Kim
+
 ## License
 
 MIT License
