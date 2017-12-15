@@ -39,10 +39,10 @@ Facebook Developer
 
 ## Credit
 
-* Minwoo Kim
-* Katie Blacketor
-* Jonathan Yuen
-* Dustin Kim
+* **_[Minwoo Kim](https://github.com/kmw0710)_**
+* **_[Katie Blacketor](https://github.com/blackeka)_**
+* **_[Jonathan Yuen](https://github.com/lalapro)_**
+* **_[Janine Garcia](https://github.com/dustykim)_**
 
 ## License
 
